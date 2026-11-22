@@ -1,6 +1,6 @@
 import os
 from fastapi import FastAPI
-
+from fastapi import HTTPException
 from app.routers import items
 
 tags_metadata = [
@@ -41,8 +41,8 @@ def root() -> dict[str, str]:
 
 
 @app.get("/health", tags=["meta"])
-def health() -> dict[str, str]:
-    return {"status": "ok"}
+def health() :
+    raise HTTPException(status_code=500, detail="Broken health check")
 
 
 @app.get("/config", tags=["meta"])
